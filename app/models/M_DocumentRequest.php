@@ -11,25 +11,51 @@ class M_DocumentRequest
     }
 
     public function insert($data)
-    {
-        $sql = "INSERT INTO document_requests
-                (user_id, departemen, jenis_pengajuan, kode_dokumen, nama_dokumen,
-                 jenis_dokumen, alasan, deskripsi_perubahan, file_path)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+{
+    $sql = "INSERT INTO document_requests (
+        user_id,
+        departemen,
+        jenis_pengajuan,
+        kode_dokumen,
+        nama_dokumen,
+        jenis_dokumen,
+        alasan,
+        deskripsi_perubahan,
+        revisi_lama,
+        versi,
+        judul_lama,
+        judul_baru,
+        dampak_perubahan,
+        tanggal_rencana,
+        tanggal_realisasi,
+        status,
+        is_active,
+        file_path
+    ) VALUES (
+        :user_id,
+        :departemen,
+        :jenis_pengajuan,
+        :kode_dokumen,
+        :nama_dokumen,
+        :jenis_dokumen,
+        :alasan,
+        :deskripsi_perubahan,
+        :revisi_lama,
+        :versi,
+        :judul_lama,
+        :judul_baru,
+        :dampak_perubahan,
+        :tanggal_rencana,
+        :tanggal_realisasi,
+        :status,
+        :is_active,
+        :file_path
+    )";
 
-        $stmt = $this->db->prepare($sql);
-        return $stmt->execute([
-            $data['user_id'],
-            $data['departemen'],
-            $data['jenis_pengajuan'],
-            $data['kode_dokumen'],
-            $data['nama_dokumen'],
-            $data['jenis_dokumen'],
-            $data['alasan'],
-            $data['deskripsi_perubahan'],
-            $data['file_path']
-        ]);
-    }
+    $stmt = $this->db->prepare($sql);
+    return $stmt->execute($data);
+}
+
 
     public function getByUser($user_id)
     {
@@ -146,7 +172,10 @@ public function getById($id)
         SELECT 
             dr.id,
             dr.kode_dokumen,
-            dr.nama_dokumen,
+            dr.judul_lama,
+            dr.judul_baru,
+            dr.revisi_lama,
+            dr.versi,
             dr.jenis_pengajuan,
             dr.jenis_dokumen,
             dr.departemen,
@@ -157,9 +186,9 @@ public function getById($id)
         JOIN users u ON dr.user_id = u.id
         ORDER BY dr.created_at DESC
     ";
-
     return $this->db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 }
 

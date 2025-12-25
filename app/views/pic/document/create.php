@@ -1,88 +1,165 @@
 <?php
-
 include BASE_PATH . '/app/views/pic/layout/header.php';
 include BASE_PATH . '/app/views/pic/layout/sidebar.php';
-// proteksi login PIC
+
 if (!isset($_SESSION['user'])) {
-    header('Location: index.php?action=login');
+    header('Location: index.php?controller=Auth&action=login');
     exit;
 }
 ?>
+
 <div class="content">
+<h2>Form Usulan Perubahan Dokumen ISO</h2>
 
-    <h2>Pengajuan Dokumen ISO</h2>
+<form action="<?= BASE_URL ?>?controller=Document&action=store"
+      method="POST"
+      enctype="multipart/form-data"
+      style="max-width:800px;background:#fff;padding:24px;border-radius:12px">
 
-    <form action="<?= BASE_URL ?>?controller=Document&action=store"
-          method="POST"
-          enctype="multipart/form-data"
-          style="max-width:700px;background:#fff;padding:24px;border-radius:12px">
-
-    <!-- JENIS PENGAJUAN -->
-    <div style="margin-bottom:16px">
-        <label>Jenis Pengajuan</label><br>
-        <select name="jenis_pengajuan" required style="width:100%;padding:10px">
-            <option value="">-- Pilih --</option>
-            <option value="baru">Dokumen Baru</option>
-            <option value="revisi">Revisi Dokumen</option>
-            <option value="penghapusan">Penghapusan Dokumen</option>
-        </select>
-    </div>
-
-    <!-- KODE -->
-    <div style="margin-bottom:16px">
-        <label>Kode Dokumen</label><br>
-        <input type="text" name="kode_dokumen" required
-               placeholder="Contoh: SOP-HR-001"
-               style="width:100%;padding:10px">
-    </div>
-
-    <!-- NAMA -->
-    <div style="margin-bottom:16px">
-        <label>Nama Dokumen</label><br>
-        <input type="text" name="nama_dokumen" required
-               placeholder="Contoh: SOP Rekrutmen"
-               style="width:100%;padding:10px">
-    </div>
-
-    <!-- JENIS DOKUMEN -->
-    <div style="margin-bottom:16px">
-        <label>Jenis Dokumen</label><br>
-        <select name="jenis_dokumen" required style="width:100%;padding:10px">
-            <option value="">-- Pilih --</option>
-            <option value="SOP">SOP</option>
-            <option value="WI">Work Instruction</option>
-            <option value="FORM">Form</option>
-            <option value="POLICY">Policy</option>
-        </select>
-    </div>
-
-    <!-- ALASAN -->
-    <div style="margin-bottom:16px">
-        <label>Alasan Pengajuan</label><br>
-        <textarea name="alasan" rows="4" required
-                  style="width:100%;padding:10px"></textarea>
-    </div>
-
-    <!-- DESKRIPSI PERUBAHAN -->
-    <div style="margin-bottom:16px">
-        <label>Deskripsi Perubahan (jika revisi)</label><br>
-        <textarea name="deskripsi_perubahan" rows="3"
-                  style="width:100%;padding:10px"></textarea>
-    </div>
-
-    <!-- FILE -->
-    <div style="margin-bottom:20px">
-        <label>Upload Dokumen (PDF / DOCX)</label><br>
-        <input type="file" name="file_dokumen"
-               accept=".pdf,.doc,.docx" required>
-    </div>
-
-    <button type="submit"
-            style="background:#2563eb;color:#fff;
-                   padding:12px 20px;border:none;border-radius:8px">
-        Submit Pengajuan
-    </button>
+<!-- ================= INFORMASI UMUM ================= -->
+<div style="margin-bottom:16px">
+    <label>Tanggal Pengajuan</label>
+    <input type="text" value="<?= date('d-m-Y') ?>" readonly
+           style="width:100%;padding:10px;background:#f3f4f6">
 </div>
-    <a href="index.php?action=document_list"
-       style="margin-left:12px">Batal</a>
+
+<div style="margin-bottom:16px">
+    <label>Departemen</label>
+    <input type="text" value="<?= $_SESSION['user']['departemen'] ?>" readonly
+           style="width:100%;padding:10px;background:#f3f4f6">
+</div>
+
+<!-- ================= JENIS PERUBAHAN ================= -->
+<div style="margin-bottom:16px">
+    <label>Jenis Perubahan</label><br>
+    <label><input type="checkbox" name="jenis_dokumen[]" value="Pedoman Mutu"> Pedoman Mutu</label><br>
+    <label><input type="checkbox" name="jenis_dokumen[]" value="Prosedur"> Prosedur</label><br>
+    <label><input type="checkbox" name="jenis_dokumen[]" value="Instruksi Kerja"> Instruksi Kerja</label><br>
+    <label><input type="checkbox" name="jenis_dokumen[]" value="Formulir"> Formulir</label><br>
+</div>
+
+<!-- ================= JENIS PENGAJUAN ================= -->
+<div style="margin-bottom:16px">
+    <label>Perubahan yang Diminta</label><br>
+    <select name="jenis_pengajuan" required style="width:100%;padding:10px">
+        <option value="">-- Pilih --</option>
+        <option value="baru">Dokumen Baru</option>
+        <option value="revisi">Revisi Dokumen</option>
+        <option value="penghapusan">Penghapusan Dokumen</option>
+    </select>
+</div>
+
+<!-- ================= DOKUMEN ================= -->
+<div style="margin-bottom:16px">
+    <label>Kode Dokumen</label>
+    <input type="text" name="kode_dokumen" required
+           placeholder="FRM-ENG-021"
+           style="width:100%;padding:10px">
+</div>
+
+<div style="margin-bottom:16px">
+    <label>Nama Dokumen</label>
+    <input type="text" name="nama_dokumen" required
+           placeholder="Schedule Maintenance AC Split"
+           style="width:100%;padding:10px">
+</div>
+
+<!-- ================= RIWAYAT REVISI ================= -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+    <div>
+        <label>No Revisi Lama</label>
+        <input type="text" name="revisi_lama" placeholder="00"
+               style="width:100%;padding:10px">
+    </div>
+    <div>
+        <label>No Revisi Baru</label>
+        <input type="text" name="versi" placeholder="01"
+               style="width:100%;padding:10px">
+    </div>
+</div>
+
+<!-- ================= JUDUL DOKUMEN ================= -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+    <div>
+        <label>Judul Dokumen Lama</label>
+        <input type="text" name="judul_lama"
+               placeholder="Judul dokumen sebelum revisi"
+               style="width:100%;padding:10px">
+    </div>
+    <div>
+        <label>Judul Dokumen Baru</label>
+        <input type="text" name="judul_baru"
+               placeholder="Judul dokumen setelah revisi"
+               style="width:100%;padding:10px">
+    </div>
+</div>
+
+<!-- ================= URAIAN ================= -->
+<div style="margin-bottom:16px">
+    <label>Uraian Usulan Perubahan</label>
+    <textarea name="deskripsi_perubahan" rows="4"
+              style="width:100%;padding:10px"></textarea>
+</div>
+
+<div style="margin-bottom:16px">
+    <label>Dampak Perubahan</label>
+    <textarea name="dampak_perubahan" rows="3"
+              style="width:100%;padding:10px"></textarea>
+</div>
+
+<!-- ================= JADWAL ================= -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+    <div>
+        <label>Rencana Pelaksanaan</label>
+        <input type="date" name="tanggal_rencana"
+               style="width:100%;padding:10px">
+    </div>
+    <div>
+        <label>Realisasi Pelaksanaan</label>
+        <input type="date" name="tanggal_realisasi"
+               style="width:100%;padding:10px">
+    </div>
+</div>
+
+<!-- ================= FILE ================= -->
+<div style="
+    margin-bottom:24px;
+    padding:16px;
+    border:2px dashed #cbd5e1;
+    border-radius:12px;
+    background:#f8fafc;
+">
+
+    <label style="display:block;margin-bottom:10px">
+        <strong>Upload Dokumen (PDF / DOCX)</strong><br>
+        <small style="color:#64748b">
+            Dokumen yang dilampirkan sebagai usulan atau revisi
+            dan akan digunakan sebagai bahan review serta approval.
+        </small>
+    </label>
+
+    <input type="file" name="file_dokumen"
+           accept=".pdf,.doc,.docx"
+           required
+           style="
+               padding:10px;
+               background:#fff;
+               border:1px solid #e5e7eb;
+               border-radius:8px;
+               width:100%;
+           ">
+
+</div>
+
+
+<button type="submit"
+        style="background:#2563eb;color:#fff;
+               padding:12px 20px;border:none;border-radius:8px">
+    Submit Pengajuan
+</button>
+
+<a href="<?= BASE_URL ?>?controller=Dashboard&action=index"
+   style="margin-left:12px">Batal</a>
+
 </form>
+</div>

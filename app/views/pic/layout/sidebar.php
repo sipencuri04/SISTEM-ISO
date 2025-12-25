@@ -139,11 +139,11 @@ body {
     <div class="menu-title">Dokumen</div>
 
     <a href="<?= BASE_URL ?>?controller=Document&action=index">
-        <span class="icon">📤</span> Upload Dokumen
+        <span class="icon">📤</span> Dokumen 
     </a>
 
     <a href="<?= BASE_URL ?>?controller=Document&action=create">
-        <span class="icon">📄</span> Dokumen Saya
+        <span class="icon">📄</span> Pengajuan Dokumen
     </a>
 
     <div class="menu-title">System</div>

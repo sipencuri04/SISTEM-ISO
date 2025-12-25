@@ -146,19 +146,20 @@ body {
         <span class="icon">✅</span> Approval Dokumen
     </a>
 
-    <a href="<?= BASE_URL ?>?controller=Document&action=index">
-        <span class="icon">📄</span> Semua Dokumen
+    <a href="<?= BASE_URL ?>?controller=History&action=index">
+        <span class="icon">📜</span> History
     </a>
 
-    <div class="menu-title">Monitoring</div>
+    
+    <!-- <div class="menu-title">Monitoring</div>
 
     <a href="<?= BASE_URL ?>?controller=Monitoring&action=index">
         <span class="icon">📊</span> Monitoring
-    </a>
+    </a> -->
 
-    <a href="<?= BASE_URL ?>?controller=Report&action=index">
+    <!-- <a href="<?= BASE_URL ?>?controller=Report&action=index">
         <span class="icon">📑</span> Laporan
-    </a>
+    </a> -->
 
     <div class="menu-title">System</div>
 
@@ -168,12 +169,5 @@ body {
     </a>
 </div>
 
-    <!-- PROFILE -->
-    <div class="profile">
-        <img src="https://i.pravatar.cc/100" alt="User">
-        <div>
-            <div class="name"><?= $_SESSION['user']['nama']; ?></div>
-            <div class="role">Admin</div>
-        </div>
-    </div>
+   
 </div>

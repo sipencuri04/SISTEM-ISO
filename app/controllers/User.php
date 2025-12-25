@@ -22,13 +22,13 @@ class User
     {
         $this->adminOnly();
         $users = $this->userModel->getAll();
-        include BASE_PATH . '/app/views/admin/User/index.php';
+        include BASE_PATH . '/app/views/admin/user/index.php';
     }
 
     public function userCreate()
     {
         $this->adminOnly();
-        include BASE_PATH . '/app/views/admin/User/tambah.php';
+        include BASE_PATH . '/app/views/admin/user/tambah.php';
     }
 
     public function userStore()
@@ -38,4 +38,68 @@ class User
         header("Location: " . BASE_URL . "?controller=User&action=userIndex");
         exit;
     }
+
+    public function userEdit()
+{
+    $this->adminOnly();
+
+    if (!isset($_GET['id'])) {
+        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        exit;
+    }
+
+    $id = $_GET['id'];
+    $user = $this->userModel->getById($id);
+
+    if (!$user) {
+        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        exit;
+    }
+
+    include BASE_PATH . '/app/views/admin/user/edit.php';
+}
+
+
+public function userUpdate()
+{
+    $this->adminOnly();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->userModel->update($_POST);
+    }
+
+    header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+    exit;
+}
+
+public function userDelete()
+{
+    $this->adminOnly();
+
+    if (!isset($_GET['id'])) {
+        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        exit;
+    }
+
+    $id = $_GET['id'];
+    $this->userModel->delete($id);
+
+    header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+    exit;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -145,22 +145,22 @@ body {
     </a>
 
     <!-- MONITORING -->
-    <div class="menu-title">ISO Monitoring</div>
-
+    <!-- <div class="menu-title">ISO Monitoring</div> -->
+<!-- 
     <a href="<?= BASE_URL ?>?controller=Monitoring&action=index">
         <span class="icon">📊</span> Monitoring ISO
-    </a>
+    </a> -->
 
-    <a href="<?= BASE_URL ?>?controller=Document&action=index">
+    <!-- <a href="<?= BASE_URL ?>?controller=Document&action=index">
         <span class="icon">📄</span> Seluruh Dokumen
-    </a>
+    </a> -->
 
     <!-- REPORT -->
-    <div class="menu-title">Report</div>
+    <!-- <div class="menu-title">Report</div> -->
 
-    <a href="<?= BASE_URL ?>?controller=Report&action=index">
+    <!-- <a href="<?= BASE_URL ?>?controller=Report&action=index">
         <span class="icon">📑</span> Laporan ISO
-    </a>
+    </a> -->
 
     <!-- SYSTEM -->
     <div class="menu-title">System</div>
