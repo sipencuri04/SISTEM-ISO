@@ -133,8 +133,12 @@ body {
     <div class="menu">
         <div class="menu-title">HOD Menu</div>
 
-        <a href="<?= BASE_URL ?>?controller=Hod&action=index" class="active">
+        <a href="<?= BASE_URL ?>?controller=Hod&action=index" class="<?= str_contains($_SERVER['QUERY_STRING'] ?? '', 'action=index') ? 'active' : '' ?>">
             <span class="icon">📝</span> Approval Dokumen
+        </a>
+
+        <a href="<?= BASE_URL ?>?controller=Hod&action=archive" class="<?= str_contains($_SERVER['QUERY_STRING'] ?? '', 'action=archive') ? 'active' : '' ?>">
+            <span class="icon">📂</span> Arsip Disetujui
         </a>
 
         <div class="menu-title">System</div>

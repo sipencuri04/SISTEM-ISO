@@ -56,6 +56,14 @@ class Hod
         exit;
     }
 
+    // Arsip Dokumen Department
+    public function archive()
+    {
+        $departemen = $_SESSION['user']['departemen'];
+        $documents = $this->model->getApprovedByDepartemen($departemen);
+        include BASE_PATH . '/app/views/hod/document/archive.php';
+    }
+
     public function show()
 {
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'hod') {

@@ -143,6 +143,33 @@ include BASE_PATH . '/app/views/hod/layout/sidebar.php';
             </tr>
         </table>
 
+        <!-- ===== FILE PREVIEW ===== -->
+        <div style="margin-top:24px;">
+            <h3>📎 Preview Dokumen</h3>
+            <?php 
+            $baseUrl = str_replace('/index.php', '', BASE_URL);
+            $fileUrl = $baseUrl . '/' . $document['file_path'];
+            
+            // Cek fisik
+            $localAbsPath = BASE_PATH . '/public/' . $document['file_path'];
+            $isFileExists = file_exists($localAbsPath);
+
+            $ext = strtolower(pathinfo($document['file_path'], PATHINFO_EXTENSION));
+            
+            if (!$isFileExists): ?>
+                <div class="alert alert-danger" style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:12px; border:1px solid #fca5a5;">
+                    ⚠️ <b>File fisik tidak ditemukan di server.</b>
+                </div>
+            <?php elseif ($ext === 'pdf'): ?>
+                <iframe src="<?= $fileUrl ?>" width="100%" height="600px" style="border:1px solid #e2e8f0; border-radius:12px;"></iframe>
+                <div style="margin-top:10px; text-align:right;">
+                    <a class="file-link" href="<?= $fileUrl; ?>" target="_blank">⬇ Download PDF</a>
+                </div>
+            <?php else: ?>
+                 <a class="file-link" href="<?= $fileUrl; ?>" target="_blank">Download / Lihat Dokumen</a>
+            <?php endif; ?>
+        </div>
+
         <div class="actions">
             <a href="<?= BASE_URL ?>?controller=Hod&action=approve&id=<?= $document['id']; ?>"
                onclick="return confirm('Setujui dokumen ini?')"

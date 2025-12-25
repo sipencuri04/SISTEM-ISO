@@ -146,6 +146,10 @@ body {
         <span class="icon">📄</span> Pengajuan Dokumen
     </a>
 
+    <a href="<?= BASE_URL ?>?controller=Pic&action=archive">
+        <span class="icon">📂</span> Arsip Disetujui
+    </a>
+
     <div class="menu-title">System</div>
 
     <a href="<?= BASE_URL ?>?controller=Auth&action=logout"

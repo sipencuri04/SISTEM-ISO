@@ -150,6 +150,11 @@ body {
         <span class="icon">📜</span> History
     </a>
 
+    <!-- 🤖 AI ASSISTANT -->
+    <a href="<?= BASE_URL ?>?controller=AiChat&action=index">
+        <span class="icon">🤖</span> AI Assistant <span style="font-size:9px; background:var(--primary); color:white; padding:2px 6px; border-radius:10px; margin-left:auto;">BETA</span>
+    </a>
+
     
     <!-- <div class="menu-title">Monitoring</div>
 

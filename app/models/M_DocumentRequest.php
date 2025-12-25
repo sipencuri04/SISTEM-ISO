@@ -101,16 +101,29 @@ public function getPendingMr()
 }
 
 // ================== GM ==================
-public function getPendingGm()
-{
-    $stmt = $this->db->prepare(
-        "SELECT * FROM document_requests
-         WHERE status = 'Menunggu Pengesahan GM'
-         ORDER BY created_at DESC"
-    );
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+    public function getPendingGm()
+    {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM document_requests
+             WHERE status = 'Menunggu Pengesahan GM'
+             ORDER BY created_at DESC"
+        );
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // ================== APPROVED / ARCHIVE ==================
+    public function getApprovedByDepartemen($departemen)
+    {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM document_requests
+             WHERE departemen = ?
+             AND status = 'Disetujui'
+             ORDER BY created_at DESC"
+        );
+        $stmt->execute([$departemen]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 
 

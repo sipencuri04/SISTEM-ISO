@@ -191,17 +191,32 @@ include BASE_PATH . '/app/views/gm/layout/sidebar.php';
 
             <?php
             // File berada di public/uploads
-            $fileUrl = BASE_URL . '/public/' . $document['file_path'];
+            $baseUrl = str_replace('/index.php', '', BASE_URL);
+            $fileUrl = $baseUrl . '/' . $document['file_path'];
+            
+            // Cek fisik file
+            $localAbsPath = BASE_PATH . '/public/' . $document['file_path'];
+            $isFileExists = file_exists($localAbsPath);
+
             $ext = strtolower(pathinfo($document['file_path'], PATHINFO_EXTENSION));
             ?>
 
-            <?php if ($ext === 'pdf'): ?>
-                <a href="<?= $fileUrl; ?>"
-                   target="_blank"
-                   class="back"
-                   style="font-weight:600">
-                    ⬇ Download Dokumen PDF
-                </a>
+            <?php if (!$isFileExists): ?>
+                <div class="alert alert-danger" style="background:#fee2e2; color:#991b1b; padding:15px; border-radius:12px; border:1px solid #fca5a5;">
+                    ⚠️ <b>File fisik tidak ditemukan.</b><br>
+                    File mungkin terhapus dari server.
+                </div>
+            <?php elseif ($ext === 'pdf'): ?>
+                <iframe src="<?= $fileUrl ?>" width="100%" height="600px" style="border:1px solid #e2e8f0; border-radius:12px;"></iframe>
+                
+                <div style="margin-top:10px; text-align:right;">
+                    <a href="<?= $fileUrl; ?>"
+                       target="_blank"
+                       class="back"
+                       style="font-weight:600">
+                        ⬇ Download PDF
+                    </a>
+                </div>
 
                 <div class="note">
                     Dokumen final yang akan disahkan oleh GM.
