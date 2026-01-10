@@ -1,6 +1,7 @@
 <?php
-include '../app/views/admin/layout/header.php';
-include '../app/views/admin/layout/sidebar.php';
+$pageTitle = 'Dashboard Admin';
+include BASE_PATH . '/app/views/admin/layout/header.php';
+include BASE_PATH . '/app/views/admin/layout/sidebar.php';
 
 /* ================= STATUS ================= */
 $statusLabel = [];
@@ -36,26 +37,12 @@ if (!empty($perbulan)) {
 }
 ?>
 
-<style>
-.content{padding:24px;background:#f1f5f9;min-height:100vh;font-family:system-ui}
-.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:24px 0}
-.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06);text-align:center}
-.card h3{font-size:14px;color:#6b7280;margin-bottom:6px}
-.card p{font-size:28px;font-weight:700;margin:0}
-.green{border-top:4px solid #22c55e}
-.blue{border-top:4px solid #3b82f6}
-.yellow{border-top:4px solid #facc15}
-.red{border-top:4px solid #ef4444}
-.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.chart-box{background:#fff;padding:20px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
-</style>
-
 <div class="content">
-    <h2>Dashboard Admin ISO</h2>
+    <h2>📊 Dashboard Admin ISO</h2>
     <p>Selamat datang, <strong><?= $_SESSION['user']['nama']; ?></strong></p>
 
     <!-- KPI -->
-    <div class="kpi">
+    <div class="grid grid-4 mb-4">
         <div class="card green">
             <h3>Total Pengajuan</h3>
             <p><?= array_sum($statusData) ?></p>
@@ -63,7 +50,7 @@ if (!empty($perbulan)) {
 
         <div class="card blue">
             <h3>Approved</h3>
-            <p><?= $statusData[array_search('Approved', $statusLabel)] ?? 0 ?></p>
+            <p><?= $statusData[array_search('Disetujui', $statusLabel)] ?? 0 ?></p>
         </div>
 
         <div class="card yellow">
@@ -73,12 +60,12 @@ if (!empty($perbulan)) {
 
         <div class="card red">
             <h3>Rejected</h3>
-            <p><?= $statusData[array_search('Rejected', $statusLabel)] ?? 0 ?></p>
+            <p><?= $statusData[array_search('Ditolak', $statusLabel)] ?? 0 ?></p>
         </div>
     </div>
 
     <!-- CHART -->
-    <div class="chart-grid">
+    <div class="grid grid-2 mb-4">
         <div class="chart-box">
             <h4>Status Dokumen</h4>
             <canvas id="statusChart"></canvas>
@@ -90,7 +77,7 @@ if (!empty($perbulan)) {
         </div>
     </div>
 
-    <div class="chart-box" style="margin-top:30px">
+    <div class="chart-box">
         <h4>Pengajuan Dokumen per Bulan</h4>
         <canvas id="monthChart"></canvas>
     </div>
@@ -107,6 +94,9 @@ new Chart(document.getElementById('statusChart'), {
             data: <?= json_encode($statusData) ?>,
             backgroundColor: ['#22c55e','#facc15','#ef4444','#3b82f6']
         }]
+    },
+    options:{
+        plugins:{legend:{position:'bottom'}}
     }
 });
 
@@ -130,10 +120,16 @@ new Chart(document.getElementById('monthChart'), {
             label: 'Pengajuan',
             data: <?= json_encode($monthData) ?>,
             borderColor: '#22c55e',
+            tension: 0.4,
             fill: false
         }]
+    },
+    options:{
+        scales:{
+            y:{beginAtZero:true}
+        }
     }
 });
 </script>
 
-<?php include '../app/views/admin/layout/footer.php'; ?>
+<?php include BASE_PATH . '/app/views/admin/layout/footer.php'; ?>

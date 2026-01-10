@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System Preview - Sistem ISO</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<!-- SIDEBAR DEMO -->
+<div class="sidebar">
+    <div class="brand">
+        <div class="logo">ISO</div>
+        <span>Sistem ISO</span>
+    </div>
+
+    <div class="menu">
+        <div class="menu-title">Dashboard</div>
+        <a href="#" class="active">
+            <span class="icon">📊</span> Dashboard
+        </a>
+
+        <div class="menu-title">Dokumen</div>
+        <a href="#">
+            <span class="icon">📄</span> Dokumen Saya
+        </a>
+        <a href="#">
+            <span class="icon">➕</span> Pengajuan Dokumen
+        </a>
+
+        <div class="menu-title">System</div>
+        <a href="#">
+            <span class="icon">🚪</span> Logout
+        </a>
+    </div>
+
+    <div class="profile">
+        <img src="https://ui-avatars.com/api/?name=Test+User&background=22c55e&color=fff" alt="User">
+        <div class="info">
+            <div class="name">Test User</div>
+            <div class="role">Administrator</div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+    <h2>🎨 Design System Preview</h2>
+    <p>Preview komponen design system Sistem ISO</p>
+
+    <!-- CARDS GRID -->
+    <h3 class="mt-4">Cards KPI</h3>
+    <div class="grid grid-4 mb-4">
+        <div class="card blue">
+            <h3>Total Dokumen</h3>
+            <p>245</p>
+        </div>
+        <div class="card yellow">
+            <h3>Pending</h3>
+            <p>32</p>
+        </div>
+        <div class="card green">
+            <h3>Approved</h3>
+            <p>198</p>
+        </div>
+        <div class="card red">
+            <h3>Rejected</h3>
+            <p>15</p>
+        </div>
+    </div>
+
+    <!-- BADGES -->
+    <h3 class="mt-4">Badges</h3>
+    <div class="mb-4">
+        <span class="badge success">Disetujui</span>
+        <span class="badge warning">Menunggu</span>
+        <span class="badge danger">Ditolak</span>
+        <span class="badge info">Info</span>
+    </div>
+
+    <!-- BUTTONS -->
+    <h3 class="mt-4">Buttons</h3>
+    <div class="mb-4">
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-danger">Danger Button</button>
+        <button class="btn btn-outline">Outline Button</button>
+    </div>
+
+    <!-- TABLE -->
+    <h3 class="mt-4">Table</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Kode</th>
+                    <th>Nama Dokumen</th>
+                    <th>Status</th>
+                    <th>Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ISO-001</strong></td>
+                    <td>Prosedur Operasional Standar</td>
+                    <td><span class="badge success">Disetujui</span></td>
+                    <td>10 Jan 2026</td>
+                </tr>
+                <tr>
+                    <td><strong>ISO-002</strong></td>
+                    <td>Manual Kualitas</td>
+                    <td><span class="badge warning">Menunggu</span></td>
+                    <td>09 Jan 2026</td>
+                </tr>
+                <tr>
+                    <td><strong>ISO-003</strong></td>
+                    <td>Work Instruction</td>
+                    <td><span class="badge danger">Ditolak</span></td>
+                    <td>08 Jan 2026</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- FORMS -->
+    <h3 class="mt-5">Form Elements</h3>
+    <div class="card" style="max-width:600px;">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" placeholder="Masukkan username">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" placeholder="Masukkan email">
+        </div>
+        <div class="form-group">
+            <label>Deskripsi</label>
+            <textarea class="form-control" rows="3" placeholder="Masukkan deskripsi"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </div>
+
+</div>
+
+</body>
+</html>

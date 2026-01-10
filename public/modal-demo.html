@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal & Notification Demo - SISTEM ISO</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/modals.css">
+</head>
+
+<body>
+
+    <button class="theme-toggle">🌙</button>
+
+    <div class="content">
+        <div class="card">
+            <h2>🎨 Modal & Notification System Demo</h2>
+            <p>Test all popups and notifications</p>
+
+            <!-- Modals -->
+            <h3 style="margin-top:24px;">Confirmation Dialogs</h3>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+                <button class="btn btn-primary" onclick="testConfirmInfo()">Info Confirm</button>
+                <button class="btn btn-primary" onclick="testConfirmSuccess()">Success Confirm</button>
+                <button class="btn btn-primary" onclick="testConfirmWarning()">Warning Confirm</button>
+                <button class="btn btn-danger" onclick="testConfirmDanger()">Danger Confirm</button>
+            </div>
+
+            <!-- Alerts -->
+            <h3 style="margin-top:24px;">Alert Dialogs</h3>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+                <button class="btn btn-outline" onclick="testAlertInfo()">Alert Info</button>
+                <button class="btn btn-outline" onclick="testAlertSuccess()">Alert Success</button>
+                <button class="btn btn-outline" onclick="testAlertWarning()">Alert Warning</button>
+                <button class="btn btn-outline" onclick="testAlertError()">Alert Error</button>
+            </div>
+
+            <!-- Loading -->
+            <h3 style="margin-top:24px;">Loading States</h3>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+                <button class="btn btn-primary" onclick="testLoadingShort()">Loading (2s)</button>
+                <button class="btn btn-primary" onclick="testLoadingLong()">Loading (5s)</button>
+            </div>
+
+            <!-- Toasts -->
+            <h3 style="margin-top:24px;">Toast Notifications</h3>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+                <button class="btn btn-outline" onclick="testToastSuccess()">Success Toast</button>
+                <button class="btn btn-outline" onclick="testToastError()">Error Toast</button>
+                <button class="btn btn-outline" onclick="testToastWarning()">Warning Toast</button>
+                <button class="btn btn-outline" onclick="testToastInfo()">Info Toast</button>
+            </div>
+
+            <!-- Detail Modal -->
+            <h3 style="margin-top:24px;">Detail View</h3>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;">
+                <button class="btn btn-primary" onclick="testDetailModal()">Show Detail Modal</button>
+            </div>
+
+            <!-- Real World Examples -->
+            <h3 style="margin-top:32px;">📋 Real World Examples</h3>
+
+            <h4 style="margin-top:16px;">Delete Action</h4>
+            <button class="btn btn-danger" onclick="testDeleteAction()">🗑️ Hapus User</button>
+
+            <h4 style="margin-top:16px;">Approve Action</h4>
+            <button class="btn btn-primary" onclick="testApproveAction()">✅ Approve Dokumen</button>
+
+            <h4 style="margin-top:16px;">Submit Form</h4>
+            <button class="btn btn-primary" onclick="testSubmitForm()">💾 Submit Form</button>
+
+            <h4 style="margin-top:16px;">Logout</h4>
+            <button class="btn btn-outline" onclick="testLogout()">🚪 Logout</button>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/modals.js"></script>
+
+    <script>
+        // ==================== CONFIRMATION TESTS ====================
+        async function testConfirmInfo() {
+            const result = await Modal.confirm({
+                title: 'Info Confirmation',
+                message: 'This is an info confirmation dialog.',
+                type: 'info'
+            });
+            Toast.info(`You clicked: ${result ? 'Yes' : 'No'}`);
+        }
+
+        async function testConfirmSuccess() {
+            const result = await Modal.confirm({
+                title: 'Success Confirmation',
+                message: 'Do you want to proceed with this action?',
+                type: 'success'
+            });
+            Toast.success(`Result: ${result}`);
+        }
+
+        async function testConfirmWarning() {
+            const result = await Modal.confirm({
+                title: 'Warning!',
+                message: 'This action requires your attention. Continue?',
+                type: 'warning'
+            });
+            Toast.warning(`Result: ${result}`);
+        }
+
+        async function testConfirmDanger() {
+            const result = await Modal.confirm({
+                title: 'Dangerous Action',
+                message: 'This action cannot be undone. Are you sure?',
+                type: 'danger',
+                confirmText: 'Delete',
+                cancelText: 'Cancel'
+            });
+            if (result) {
+                Toast.error('Deleted!');
+            }
+        }
+
+        // ==================== ALERT TESTS ====================
+        function testAlertInfo() {
+            Modal.alert({
+                title: 'Information',
+                message: 'This is an informational message.',
+                type: 'info'
+            });
+        }
+
+        function testAlertSuccess() {
+            Modal.alert({
+                title: 'Success!',
+                message: 'Operation completed successfully.',
+                type: 'success'
+            });
+        }
+
+        function testAlertWarning() {
+            Modal.alert({
+                title: 'Warning',
+                message: 'Please review this warning message.',
+                type: 'warning'
+            });
+        }
+
+        function testAlertError() {
+            Modal.alert({
+                title: 'Error Occurred',
+                message: 'An error has occurred. Please try again.',
+                type: 'danger'
+            });
+        }
+
+        // ==================== LOADING TESTS ====================
+        function testLoadingShort() {
+            const loading = Modal.loading('Processing...');
+            setTimeout(() => {
+                loading.close();
+                Toast.success('Done!');
+            }, 2000);
+        }
+
+        function testLoadingLong() {
+            const loading = Modal.loading('Please wait, this may take a while...');
+            setTimeout(() => {
+                loading.close();
+                Toast.success('Completed!');
+            }, 5000);
+        }
+
+        // ==================== TOAST TESTS ====================
+        function testToastSuccess() {
+            Toast.success('Data berhasil disimpan!', 'Berhasil');
+        }
+
+        function testToastError() {
+            Toast.error('Terjadi kesalahan saat memproses data.', 'Error');
+        }
+
+        function testToastWarning() {
+            Toast.warning('Beberapa field belum diisi dengan benar.', 'Peringatan');
+        }
+
+        function testToastInfo() {
+            Toast.info('Data Anda sedang diproses.', 'Info');
+        }
+
+        // ==================== DETAIL MODAL TEST ====================
+        function testDetailModal() {
+            Modal.showDetail({
+                title: 'Detail Dokumen',
+                size: 'large',
+                data: {
+                    'Kode Dokumen': 'ISO-001',
+                    'Judul': 'Prosedur Quality Control',
+                    'Departemen': 'Engineering',
+                    'Status': 'Approved',
+                    'Tanggal Dibuat': '10 Jan 2026',
+                    'Dibuat Oleh': 'John Doe',
+                    'Revisi': 'V2.0',
+                    'Deskripsi': 'Dokumen ini berisi prosedur quality control untuk produksi.',
+                }
+            });
+        }
+
+        // ==================== REAL WORLD EXAMPLES ====================
+        async function testDeleteAction() {
+            const confirmed = await Modal.confirm({
+                title: 'Konfirmasi Hapus',
+                message: 'Apakah Anda yakin ingin menghapus user "John Doe"? Tindakan ini tidak dapat dibatalkan.',
+                type: 'danger',
+                confirmText: 'Hapus',
+                cancelText: 'Batal'
+            });
+
+            if (confirmed) {
+                const loading = Modal.loading('Menghapus user...');
+
+                // Simulate API call
+                setTimeout(() => {
+                    loading.close();
+                    Toast.success('User berhasil dihapus!');
+                }, 1500);
+            }
+        }
+
+        async function testApproveAction() {
+            const confirmed = await Modal.confirm({
+                title: 'Approve Dokumen',
+                message: 'Apakah Anda yakin ingin menyetujui dokumen "ISO-001"? Dokumen akan diteruskan ke tahap berikutnya.',
+                type: 'success',
+                confirmText: 'Approve',
+                cancelText: 'Batal'
+            });
+
+            if (confirmed) {
+                const loading = Modal.loading('Memproses approval...');
+
+                setTimeout(() => {
+                    loading.close();
+                    Toast.success('Dokumen berhasil di-approve dan diteruskan ke MR!');
+                }, 2000);
+            }
+        }
+
+        async function testSubmitForm() {
+            const loading = Modal.loading('Menyimpan data...');
+
+            // Simulate form submission
+            setTimeout(() => {
+                loading.close();
+
+                Modal.alert({
+                    title: 'Berhasil!',
+                    message: 'Data berhasil disimpan. Anda akan diarahkan ke halaman daftar.',
+                    type: 'success'
+                });
+            }, 1500);
+        }
+
+        async function testLogout() {
+            const confirmed = await Modal.confirm({
+                title: 'Logout',
+                message: 'Apakah Anda yakin ingin keluar dari sistem?',
+                type: 'warning',
+                confirmText: 'Logout',
+                cancelText: 'Batal'
+            });
+
+            if (confirmed) {
+                Toast.info('Logging out...');
+                setTimeout(() => {
+                    Toast.success('Berhasil logout!');
+                }, 1000);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

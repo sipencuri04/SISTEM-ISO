@@ -9,7 +9,7 @@ class Hod
     {
         // proteksi role HOD
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'hod') {
-            header("Location: " . BASE_URL . "?controller=Auth&action=login");
+            header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
             exit;
         }
 
@@ -37,7 +37,7 @@ class Hod
             'Menunggu Validasi Admin'
         );
 
-        header("Location: " . BASE_URL . "?controller=Hod&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Hod&action=index");
         exit;
     }
 
@@ -52,7 +52,7 @@ class Hod
             'Ditolak HOD'
         );
 
-        header("Location: " . BASE_URL . "?controller=Hod&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Hod&action=index");
         exit;
     }
 
@@ -67,7 +67,7 @@ class Hod
     public function show()
 {
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'hod') {
-        header("Location: " . BASE_URL . "?controller=Auth&action=login");
+        header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
         exit;
     }
 

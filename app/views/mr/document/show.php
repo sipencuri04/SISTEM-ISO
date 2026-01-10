@@ -3,100 +3,6 @@ include BASE_PATH . '/app/views/mr/layout/header.php';
 include BASE_PATH . '/app/views/mr/layout/sidebar.php';
 ?>
 
-<style>
-.content{
-    padding:24px;
-    background:#f1f5f9;
-    min-height:100vh;
-    font-family:system-ui, -apple-system, BlinkMacSystemFont;
-}
-
-.card{
-    background:#fff;
-    padding:24px;
-    border-radius:16px;
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-    max-width:900px;
-}
-
-.header{
-    margin-bottom:20px;
-}
-
-.header h2{
-    margin:0;
-    font-size:20px;
-}
-
-.table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:14px;
-}
-
-.table td{
-    padding:12px 10px;
-    vertical-align:top;
-}
-
-.table tr td:first-child{
-    width:220px;
-    color:#475569;
-    font-weight:600;
-}
-
-.section{
-    margin-top:28px;
-}
-
-.badge{
-    padding:4px 12px;
-    border-radius:999px;
-    font-size:12px;
-    font-weight:600;
-}
-
-.wait{background:#fef3c7;color:#92400e;}
-.ok{background:#dcfce7;color:#166534;}
-.no{background:#fee2e2;color:#991b1b;}
-
-.old{
-    background:#fee2e2;
-    color:#991b1b;
-    padding:6px 10px;
-    border-radius:8px;
-    display:inline-block;
-}
-
-.new{
-    background:#dcfce7;
-    color:#166534;
-    padding:6px 10px;
-    border-radius:8px;
-    display:inline-block;
-}
-
-.note{
-    font-size:12px;
-    color:#64748b;
-    margin-top:4px;
-}
-
-.actions{
-    margin-top:28px;
-}
-
-.actions a{
-    text-decoration:none;
-    font-weight:600;
-    margin-right:16px;
-}
-
-.approve{color:#16a34a;}
-.reject{color:#dc2626;}
-.back{color:#2563eb;}
-</style>
-
 <div class="content">
     <div class="card">
 
@@ -230,19 +136,19 @@ include BASE_PATH . '/app/views/mr/layout/sidebar.php';
         <!-- ================= AKSI ================= -->
         <div class="actions">
             <a class="approve"
-               href="<?= BASE_URL ?>?controller=Mr&action=approve&id=<?= $document['id']; ?>"
+               href="<?= BASE_URL_INDEX ?>?controller=Mr&action=approve&id=<?= $document['id']; ?>"
                onclick="return confirm('Setujui dokumen ini dan lanjut ke GM?')">
                ✔ Approve
             </a>
 
             <a class="reject"
-               href="<?= BASE_URL ?>?controller=Mr&action=reject&id=<?= $document['id']; ?>"
+               href="<?= BASE_URL_INDEX ?>?controller=Mr&action=reject&id=<?= $document['id']; ?>"
                onclick="return confirm('Tolak dokumen ini?')">
                ✖ Reject
             </a>
 
             <a class="back"
-               href="<?= BASE_URL ?>?controller=Mr&action=index">
+               href="<?= BASE_URL_INDEX ?>?controller=Mr&action=index">
                ← Kembali
             </a>
         </div>

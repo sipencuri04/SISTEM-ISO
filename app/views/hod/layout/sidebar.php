@@ -3,147 +3,39 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'hod') {
     header("Location: " . BASE_URL . "?controller=Auth&action=login");
     exit;
 }
+
+$currentController = $_GET['controller'] ?? 'Dashboard';
+$currentAction = $_GET['action'] ?? 'index';
 ?>
 
-<style>
-:root {
-    --green: #22c55e;
-    --green-soft: #dcfce7;
-    --bg: #ffffff;
-    --text: #111827;
-    --muted: #6b7280;
-    --border: #e5e7eb;
-}
-
-body {
-    background: #f1f5f9;
-}
-
-.sidebar {
-    width: 260px;
-    height: calc(100vh - 40px);
-    background: var(--bg);
-    border-radius: 16px;
-    margin: 20px;
-    padding: 20px 16px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,.06);
-    display: flex;
-    flex-direction: column;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 25px;
-}
-
-.brand .logo {
-    width: 36px;
-    height: 36px;
-    background: var(--green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-}
-
-.menu-title {
-    font-size: 11px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 18px 12px 8px;
-}
-
-.menu a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    color: var(--text);
-    text-decoration: none;
-    font-size: 14px;
-    transition: .2s;
-}
-
-.menu a:hover {
-    background: var(--green-soft);
-}
-
-.menu a.active {
-    background: var(--green-soft);
-    color: var(--green);
-    font-weight: 600;
-}
-
-.menu .icon {
-    width: 20px;
-    text-align: center;
-}
-
-.profile {
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.profile img {
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.profile .name {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.profile .role {
-    font-size: 12px;
-    color: var(--muted);
-}
-
-.content {
-    margin-left: 320px;
-    padding: 30px;
-}
-</style>
-
 <div class="sidebar">
-
     <!-- BRAND -->
     <div class="brand">
         <div class="logo">ISO</div>
-        ISO HR
+        <span>Sistem ISO</span>
     </div>
 
     <!-- MENU -->
     <div class="menu">
-        <div class="menu-title">HOD Menu</div>
-
-        <a href="<?= BASE_URL ?>?controller=Hod&action=index" class="<?= str_contains($_SERVER['QUERY_STRING'] ?? '', 'action=index') ? 'active' : '' ?>">
-            <span class="icon">📝</span> Approval Dokumen
+        <div class="menu-title">Dashboard</div>
+        <a href="<?= BASE_URL_INDEX ?>?controller=Dashboard&action=index" 
+           class="<?= ($currentController == 'Dashboard') ? 'active' : '' ?>">
+            <span class="icon">📊</span> Dashboard
         </a>
 
-        <a href="<?= BASE_URL ?>?controller=Hod&action=archive" class="<?= str_contains($_SERVER['QUERY_STRING'] ?? '', 'action=archive') ? 'active' : '' ?>">
+        <div class="menu-title">Dokumen</div>
+        <a href="<?= BASE_URL_INDEX ?>?controller=Hod&action=index"
+           class="<?= ($currentController == 'Hod' && $currentAction == 'index') ? 'active' : '' ?>">
+            <span class="icon">📝</span> Approval Dokumen
+        </a>
+        
+        <a href="<?= BASE_URL_INDEX ?>?controller=Hod&action=archive"
+           class="<?= ($currentController == 'Hod' && $currentAction == 'archive') ? 'active' : '' ?>">
             <span class="icon">📂</span> Arsip Disetujui
         </a>
 
         <div class="menu-title">System</div>
-
-        <a href="<?= BASE_URL ?>?controller=Auth&action=logout"
+        <a href="<?= BASE_URL_INDEX ?>?controller=Auth&action=logout"
            onclick="return confirm('Yakin ingin logout?')">
             <span class="icon">🚪</span> Logout
         </a>
@@ -151,10 +43,10 @@ body {
 
     <!-- PROFILE -->
     <div class="profile">
-        <img src="https://i.pravatar.cc/100" alt="User">
-        <div>
+        <img src="https://ui-avatars.com/api/?name=<?= urlencode($_SESSION['user']['nama']) ?>&background=facc15&color=000" alt="User">
+        <div class="info">
             <div class="name"><?= $_SESSION['user']['nama']; ?></div>
-            <div class="role">HOD</div>
+            <div class="role">Head of Department</div>
         </div>
     </div>
 </div>

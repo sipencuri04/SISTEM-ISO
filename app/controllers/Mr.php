@@ -8,7 +8,7 @@ class Mr
     public function __construct()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'mr') {
-            header("Location: " . BASE_URL . "?controller=Auth&action=login");
+            header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
             exit;
         }
 
@@ -42,7 +42,7 @@ class Mr
 
         $this->model->updateStatus($id, 'Menunggu Pengesahan GM');
 
-        header("Location: " . BASE_URL . "?controller=Mr&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Mr&action=index");
         exit;
     }
 
@@ -54,7 +54,7 @@ class Mr
 
         $this->model->updateStatus($id, 'Ditolak MR');
 
-        header("Location: " . BASE_URL . "?controller=Mr&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Mr&action=index");
         exit;
     }
 }

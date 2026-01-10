@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Test - Sistem ISO</title>
+    <link rel="stylesheet" href="/SISTEM-ISO/public/assets/css/style.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .test-box {
+            border: 2px solid #e5e7eb;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧪 CSS Load Test</h1>
+
+    <div class="test-box">
+        <h2>Test 1: CSS Variables</h2>
+        <div style="background: var(--primary); color: white; padding: 10px; border-radius: 8px;">
+            Jika ini background hijau, CSS variables bekerja! ✅
+        </div>
+    </div>
+
+    <div class="test-box">
+        <h2>Test 2: Card Component</h2>
+        <div class="card green" style="max-width: 300px;">
+            <h3>Test Card</h3>
+            <p>123</p>
+        </div>
+    </div>
+
+    <div class="test-box">
+        <h2>Test 3: Badges</h2>
+        <span class="badge success">Success</span>
+        <span class="badge warning">Warning</span>
+        <span class="badge danger">Danger</span>
+    </div>
+
+    <div class="test-box">
+        <h2>Test 4: Buttons</h2>
+        <button class="btn btn-primary">Primary Button</button>
+        <button class="btn btn-danger">Danger Button</button>
+    </div>
+
+    <div class="test-box">
+        <h2>Hasil Test:</h2>
+        <ul>
+            <li>Jika semua komponen di atas ter-style dengan baik = <strong style="color: green;">CSS SUKSES ✅</strong>
+            </li>
+            <li>Jika hanya tampil text biasa tanpa style = <strong style="color: red;">CSS GAGAL ❌</strong></li>
+        </ul>
+    </div>
+
+</body>
+
+</html>

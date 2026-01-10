@@ -13,9 +13,15 @@ class User
     private function adminOnly()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            header("Location: " . BASE_URL . "?controller=Auth&action=login");
+            header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
             exit;
         }
+    }
+
+    // Alias for userIndex (for cleaner URLs)
+    public function index()
+    {
+        $this->userIndex();
     }
 
     public function userIndex()
@@ -24,6 +30,13 @@ class User
         $users = $this->userModel->getAll();
         include BASE_PATH . '/app/views/admin/user/index.php';
     }
+
+    // Alias methods for cleaner URLs
+    public function create() { $this->userCreate(); }
+    public function store() { $this->userStore(); }
+    public function edit() { $this->userEdit(); }
+    public function update() { $this->userUpdate(); }
+    public function delete() { $this->userDelete(); }
 
     public function userCreate()
     {
@@ -35,7 +48,7 @@ class User
     {
         $this->adminOnly();
         $this->userModel->insert($_POST);
-        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
         exit;
     }
 
@@ -44,7 +57,7 @@ class User
     $this->adminOnly();
 
     if (!isset($_GET['id'])) {
-        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
         exit;
     }
 
@@ -52,7 +65,7 @@ class User
     $user = $this->userModel->getById($id);
 
     if (!$user) {
-        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
         exit;
     }
 
@@ -68,7 +81,7 @@ public function userUpdate()
         $this->userModel->update($_POST);
     }
 
-    header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+    header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
     exit;
 }
 
@@ -77,14 +90,14 @@ public function userDelete()
     $this->adminOnly();
 
     if (!isset($_GET['id'])) {
-        header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+        header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
         exit;
     }
 
     $id = $_GET['id'];
     $this->userModel->delete($id);
 
-    header("Location: " . BASE_URL . "?controller=User&action=userIndex");
+    header("Location: " . BASE_URL_INDEX . "?controller=User&action=userIndex");
     exit;
 }
 

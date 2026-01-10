@@ -96,7 +96,7 @@ class Document
         'file_path'            => 'uploads/documents/' . $filename
     ]);
 
-    header("Location: " . BASE_URL . "?controller=Document&action=index");
+    header("Location: " . BASE_URL_INDEX . "?controller=Document&action=index");
     exit;
 }
 

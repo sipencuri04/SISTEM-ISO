@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 <div class="content">
 <h2>Form Usulan Perubahan Dokumen ISO</h2>
 
-<form action="<?= BASE_URL ?>?controller=Document&action=store"
+<form action="<?= BASE_URL_INDEX ?>?controller=Document&action=store"
       method="POST"
       enctype="multipart/form-data"
       style="max-width:800px;background:#fff;padding:24px;border-radius:12px">
@@ -158,7 +158,7 @@ if (!isset($_SESSION['user'])) {
     Submit Pengajuan
 </button>
 
-<a href="<?= BASE_URL ?>?controller=Dashboard&action=index"
+<a href="<?= BASE_URL_INDEX ?>?controller=Dashboard&action=index"
    style="margin-left:12px">Batal</a>
 
 </form>

@@ -7,10 +7,14 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 define('BASE_PATH', dirname(__DIR__));
-define('BASE_URL', '/SISTEM-ISO/public/index.php');
+define('BASE_URL', '/SISTEM-ISO/public/');
+define('BASE_URL_INDEX', '/SISTEM-ISO/public/index.php');
 
 /* 🔴 WAJIB LOAD DATABASE DI SINI */
 require_once BASE_PATH . '/app/config/database.php';
+
+/* 🔧 LOAD HELPER FUNCTIONS */
+require_once BASE_PATH . '/app/config/helpers.php';
 
 /* ROUTER */
 $controllerName = $_GET['controller'] ?? 'Auth';

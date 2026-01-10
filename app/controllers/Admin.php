@@ -8,7 +8,7 @@ class Admin
     public function __construct()
     {
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            header("Location: " . BASE_URL . "?controller=Auth&action=login");
+            header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
             exit;
         }
 
@@ -45,7 +45,7 @@ class Admin
 
         $this->model->updateStatus($id, 'Menunggu Review MR');
 
-        header("Location: " . BASE_URL . "?controller=Admin&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Admin&action=index");
         exit;
     }
 
@@ -58,7 +58,7 @@ class Admin
 
         $this->model->updateStatus($id, 'Ditolak Admin');
 
-        header("Location: " . BASE_URL . "?controller=Admin&action=index");
+        header("Location: " . BASE_URL_INDEX . "?controller=Admin&action=index");
         exit;
     }
 }

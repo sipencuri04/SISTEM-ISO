@@ -1,6 +1,6 @@
 <?php
 
-require_once BASE_PATH . '/app/services/AiService.php';
+require_once BASE_PATH . '/app/services/LocalAiService.php';
 
 class AiChat
 {
@@ -10,11 +10,13 @@ class AiChat
     {
         // Cek Admin
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
-            header("Location: " . BASE_URL . "?controller=Auth&action=login");
+            header("Location: " . BASE_URL_INDEX . "?controller=Auth&action=login");
             exit;
         }
 
-        $this->aiService = new AiService();
+        // Initialize Local AI Service with database connection
+        global $db;
+        $this->aiService = new LocalAiService($db);
     }
 
     public function index()
@@ -43,7 +45,7 @@ class AiChat
             $answer = $this->aiService->ask($question);
             echo json_encode(['answer' => $answer]);
         } catch (Exception $e) {
-            echo json_encode(['error' => $e->getMessage()]);
+            echo json_encode(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }
